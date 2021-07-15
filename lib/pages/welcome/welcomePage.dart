@@ -75,13 +75,15 @@ class WelcomePage extends StatelessWidget {
   }
 
   // 按钮
-  Widget _buildStartButton() {
+  Widget _buildStartButton(BuildContext context) {
     return Container(
       width: duSetWidth(295),
       height: duSetHeight(44),
       margin: EdgeInsets.only(bottom: duSetHeight(20)),
       child: TextButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, "/sign-in");
+        },
         child: Text(
           'Get started',
           style: TextStyle(color: AppColors.primaryElementText),
@@ -121,7 +123,7 @@ class WelcomePage extends StatelessWidget {
               40,
             ),
             Spacer(),
-            _buildStartButton()
+            _buildStartButton(context)
           ],
         ),
       ),
