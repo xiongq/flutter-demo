@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: Size(375, 812 - 44 - 34),
       builder: () => MaterialApp(
-        title: 'Flutter',
+        title: 'Flutters',
         theme: ThemeData(
           primarySwatch: Colors.green,
         ),
