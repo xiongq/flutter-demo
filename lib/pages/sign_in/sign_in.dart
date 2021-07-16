@@ -107,7 +107,7 @@ class _SignInPageState extends State<SignInPage> {
             isPassword: true,
           ),
           Container(
-            height: 44,
+            height: duSetWidth(44),
             margin: EdgeInsets.only(top: duSetHeight(15)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -120,7 +120,7 @@ class _SignInPageState extends State<SignInPage> {
                     gbColor: AppColors.thirdElement,
                   ),
                 ),
-                SizedBox(width: 15),
+                SizedBox(width: duSetWidth(15)),
                 Expanded(
                   child: btnFlatButtonWidget(
                     onPressed: () {},
@@ -130,7 +130,7 @@ class _SignInPageState extends State<SignInPage> {
               ],
             ),
           ),
-          SizedBox(height: 15),
+          // SizedBox(height: duSetHeight(15)),
           TextButton(
             onPressed: () {},
             child: Text(
@@ -153,7 +153,7 @@ class _SignInPageState extends State<SignInPage> {
   Widget _buildThirdPartyLogin() {
     return Container(
       width: duSetWidth(295),
-      margin: EdgeInsets.only(bottom: duSetHeight(40)),
+      // margin: EdgeInsets.only(bottom: 10),
       child: Column(
         children: [
           // title
@@ -167,9 +167,9 @@ class _SignInPageState extends State<SignInPage> {
               fontSize: duSetFontSize(16),
             ),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: duSetHeight(15)),
           Container(
-            height: 44,
+            height: duSetWidth(44),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -206,7 +206,7 @@ class _SignInPageState extends State<SignInPage> {
   Widget _buildSignupButton() {
     return Container(
       width: duSetWidth(295),
-      height: 44,
+      height: duSetWidth(44),
       margin: EdgeInsets.only(bottom: duSetHeight(20)),
       child: btnFlatButtonWidget(
         onPressed: () {},
@@ -230,6 +230,7 @@ class _SignInPageState extends State<SignInPage> {
             _buildInputForm(),
             Spacer(),
             _buildThirdPartyLogin(),
+            Spacer(),
             _buildSignupButton(),
           ],
         ),

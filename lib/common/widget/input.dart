@@ -11,7 +11,7 @@ Widget inputTextEdit({
   double marginTop = 15,
 }) {
   return Container(
-    height: 44,
+    height: duSetWidth(44),
     margin: EdgeInsets.only(top: marginTop),
     decoration: BoxDecoration(
       color: AppColors.secondaryElement,

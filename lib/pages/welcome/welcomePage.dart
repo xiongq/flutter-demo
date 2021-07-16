@@ -78,7 +78,7 @@ class WelcomePage extends StatelessWidget {
   Widget _buildStartButton(BuildContext context) {
     return Container(
       width: duSetWidth(295),
-      height: duSetHeight(44),
+      height: duSetWidth(44),
       margin: EdgeInsets.only(bottom: duSetHeight(20)),
       child: TextButton(
         onPressed: () {
