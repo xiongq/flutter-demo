@@ -58,7 +58,7 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
           Container(
             width: duSetWidth(295),
-            height: 44,
+            height: duSetWidth(44),
             margin: EdgeInsets.only(top: duSetWidth(15)),
             child: btnFlatButtonWidget(
               onPressed: () {
@@ -138,7 +138,7 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget _buildThirdPartyLogin() {
     return Container(
       width: duSetWidth(295),
-      // margin: EdgeInsets.only(bottom: 10),
+      margin: EdgeInsets.only(bottom: 40),
       child: Column(
         children: [
           // title
@@ -191,7 +191,7 @@ class _SignUpPageState extends State<SignUpPage> {
     return Container(
       width: duSetWidth(295),
       height: duSetWidth(44),
-      margin: EdgeInsets.only(top: duSetHeight(40)),
+      margin: EdgeInsets.only(bottom: duSetHeight(20)),
       child: btnFlatButtonWidget(
         onPressed: () {
           Navigator.pop(context);
@@ -232,6 +232,7 @@ class _SignUpPageState extends State<SignUpPage> {
               _buildInputForm(),
               Spacer(),
               _buildThirdPartyLogin(),
+              // Spacer(),
               _buildHaveAccountButton(),
             ],
           ),

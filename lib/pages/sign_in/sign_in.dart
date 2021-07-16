@@ -17,11 +17,14 @@ class _SignInPageState extends State<SignInPage> {
   //密码的控制器
   final TextEditingController _passController = TextEditingController();
   // 跳转 注册界面
-  _handleNavSignUp() {
-    Navigator.pushNamed(
-      context,
-      "/sign-up",
-    );
+  _handleNavSignUp() async {
+    // Navigator.pushNamed(
+    //   context,
+    //   "/sign-up",
+    // );
+
+    var res = await testAPI.test();
+    print(res);
   }
 
   // 执行登录操作
@@ -160,7 +163,7 @@ class _SignInPageState extends State<SignInPage> {
               ],
             ),
           ),
-          // SizedBox(height: duSetHeight(15)),
+          SizedBox(height: duSetHeight(15)),
           TextButton(
             onPressed: () {},
             child: Text(
@@ -183,7 +186,7 @@ class _SignInPageState extends State<SignInPage> {
   Widget _buildThirdPartyLogin() {
     return Container(
       width: duSetWidth(295),
-      // margin: EdgeInsets.only(bottom: 10),
+      margin: EdgeInsets.only(bottom: 40),
       child: Column(
         children: [
           // title
@@ -262,7 +265,7 @@ class _SignInPageState extends State<SignInPage> {
             _buildInputForm(),
             Spacer(),
             _buildThirdPartyLogin(),
-            Spacer(),
+            // Spacer(),
             _buildSignupButton(),
           ],
         ),
