@@ -16,6 +16,35 @@ class _SignInPageState extends State<SignInPage> {
   final TextEditingController _emailController = TextEditingController();
   //密码的控制器
   final TextEditingController _passController = TextEditingController();
+  // 跳转 注册界面
+  _handleNavSignUp() {
+    Navigator.pushNamed(
+      context,
+      "/sign-up",
+    );
+  }
+
+  // 执行登录操作
+  _handleSignIn() async {
+    if (!duIsEmail(_emailController.value.text)) {
+      toastInfo(msg: '请正确输入邮件');
+      return;
+    }
+    if (!duCheckStringLength(_passController.value.text, 6)) {
+      toastInfo(msg: '密码不能小于6位');
+      return;
+    }
+
+    UserRequestEntity params = UserRequestEntity(
+      email: _emailController.value.text,
+      password: duSHA256(_passController.value.text),
+    );
+
+    UserResponseEntity res = await UserAPI.login(params: params);
+
+    // 写本地 access_token , 不写全局，业务：离线登录
+    // 全局数据 gUser
+  }
 
   // logo
   Widget _buildLogo() {
@@ -116,9 +145,7 @@ class _SignInPageState extends State<SignInPage> {
               children: [
                 Expanded(
                   child: btnFlatButtonWidget(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/sign-up');
-                    },
+                    onPressed: _handleNavSignUp,
                     title: 'Sign up',
                     gbColor: AppColors.thirdElement,
                   ),
@@ -126,27 +153,7 @@ class _SignInPageState extends State<SignInPage> {
                 SizedBox(width: duSetWidth(15)),
                 Expanded(
                   child: btnFlatButtonWidget(
-                    onPressed: () async {
-                      // Navigator.pushNamed(context, '/sign-in');
-                      if (!duIsEmail(_emailController.value.text)) {
-                        toastInfo(msg: '请输入正确邮件地址');
-
-                        return;
-                      }
-                      if (!duCheckStringLength(_passController.value.text, 6)) {
-                        toastInfo(msg: '密码不能小于6位');
-                        return;
-                      }
-
-                      UserRequestEntity params = UserRequestEntity(
-                        email: _emailController.value.text,
-                        password: _passController.value.text,
-                      );
-                      UserResponseEntity res = await UserAPI.login(
-                        params: params,
-                      );
-                      print(res.displayName);
-                    },
+                    onPressed: _handleSignIn,
                     title: 'Sign in',
                   ),
                 ),
