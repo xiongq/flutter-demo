@@ -37,6 +37,7 @@ dependencies:
   cookie_jar: ^3.0.1
   # storage
   localstorage: ^4.0.0+1
+  shared_preferences: ^2.0.6
   # sha
   crypto: ^3.0.1
 

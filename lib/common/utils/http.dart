@@ -1,9 +1,10 @@
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
-import 'package:flutter_application_1/common/utils/utils.dart';
 import 'package:flutter_application_1/common/values/values.dart';
 import 'package:flutter_application_1/common/widget/widgets.dart';
+
+import '../../global.dart';
 
 class ErrorEntity implements Exception {
   int code;
@@ -56,40 +57,64 @@ class HttpUtil {
     CookieJar cookieJar = CookieJar();
     dio.interceptors.add(CookieManager(cookieJar));
     // 添加拦截器
-    dio.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
-      // Do something before request is sent
-      print("请求之前");
-      return handler.next(options); //continue
-      // If you want to resolve the request with some custom data，
-      // you can resolve a `Response` object eg: return `dio.resolve(response)`.
-      // If you want to reject the request with a error message,
-      // you can reject a `DioError` object eg: return `dio.reject(dioError)`
-    }, onResponse: (response, handler) {
-      // Do something with response data
-      print("响应之前");
-      return handler.next(response); // continue
-      // If you want to reject the request with a error message,
-      // you can reject a `DioError` object eg: return `dio.reject(dioError)`
-    }, onError: (DioError e, handler) {
-      // Do something with response error
-      toastInfo(msg: '请求发生错误');
-      print("错误之前");
-      return handler.next(e); //continue
-      // If you want to resolve the request with some custom data，
-      // you can resolve a `Response` object eg: return `dio.resolve(response)`.
-    }));
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) {
+          // Do something before request is sent
+          print("请求之前");
+          return handler.next(options); //continue
+          // If you want to resolve the request with some custom data，
+          // you can resolve a `Response` object eg: return `dio.resolve(response)`.
+          // If you want to reject the request with a error message,
+          // you can reject a `DioError` object eg: return `dio.reject(dioError)`
+        },
+        onResponse: (response, handler) {
+          // Do something with response data
+          print("响应之前");
+          return handler.next(response); // continue
+          // If you want to reject the request with a error message,
+          // you can reject a `DioError` object eg: return `dio.reject(dioError)`
+        },
+        onError: (DioError e, handler) {
+          // Do something with response error
+          toastInfo(msg: '请求发生错误');
+          print("错误之前");
+          return handler.next(e); //continue
+          // If you want to resolve the request with some custom data，
+          // you can resolve a `Response` object eg: return `dio.resolve(response)`.
+        },
+      ),
+    );
+    // 加内存缓存
+    dio.interceptors.add(NetCache());
   }
 
   /// restful get 操作
-  // ignore: unused_element
-  Future get(String path,
-      {dynamic params, Options? options, CancelToken? cancelToken}) async {
+  /// refresh 是否下拉刷新 默认 false
+  /// noCache 是否不缓存 默认 true
+  /// list 是否列表 默认 false
+  /// cacheKey 缓存key
+  Future get(
+    String path, {
+    dynamic params,
+    Options? options,
+    bool refresh = false,
+    bool noCache = !CACHE_ENABLE,
+    bool list = false,
+    String cacheKey = '',
+  }) async {
     try {
-      var tokenOptions = options ?? getLocalOptions();
-      var response = await dio.get(path,
-          queryParameters: params,
-          options: tokenOptions,
-          cancelToken: cancelToken);
+      Options requestOptions = options ?? Options();
+      requestOptions = requestOptions.copyWith(extra: {
+        "refresh": refresh,
+        "noCache": noCache,
+        "list": list,
+        "cacheKey": cacheKey,
+      });
+      Map<String, dynamic> _authorization = getAuthorizationHeader();
+      requestOptions = requestOptions.copyWith(headers: _authorization);
+      var response =
+          await dio.get(path, queryParameters: params, options: requestOptions);
       return response.data;
     } on DioError catch (e) {
       throw createErrorEntity(e);
@@ -97,64 +122,98 @@ class HttpUtil {
   }
 
   /// restful post 操作
-  // ignore: unused_element
-  Future post(String path,
-      {dynamic params, Options? options, CancelToken? cancelToken}) async {
-    try {
-      var tokenOptions = options ?? getLocalOptions();
-      var response = await dio.post(path,
-          data: params, options: tokenOptions, cancelToken: cancelToken);
-      if (response.data == null) {
-        print("object");
-      }
-      return response.data;
-    } on DioError catch (e) {
-      throw createErrorEntity(e);
-    }
+  Future post(
+    String path, {
+    dynamic params,
+    Options? options,
+  }) async {
+    Options requestOptions = options ?? Options();
+    Map<String, dynamic> _authorization = getAuthorizationHeader();
+    requestOptions = requestOptions.copyWith(headers: _authorization);
+    var response = await dio.post(path, data: params, options: requestOptions);
+    return response.data;
   }
 
   /// restful put 操作
-  // ignore: unused_element
-  Future put(String path,
-      {dynamic params, Options? options, CancelToken? cancelToken}) async {
-    try {
-      var tokenOptions = options ?? getLocalOptions();
-      var response = await dio.put(path,
-          data: params, options: tokenOptions, cancelToken: cancelToken);
-      return response.data;
-    } on DioError catch (e) {
-      throw createErrorEntity(e);
-    }
+  Future put(
+    String path, {
+    dynamic params,
+    Options? options,
+  }) async {
+    Options requestOptions = options ?? Options();
+    Map<String, dynamic> _authorization = getAuthorizationHeader();
+    requestOptions = requestOptions.copyWith(headers: _authorization);
+    var response = await dio.put(path, data: params, options: requestOptions);
+    return response.data;
+  }
+
+  /// restful patch 操作
+  Future patch(
+    String path, {
+    dynamic params,
+    Options? options,
+  }) async {
+    Options requestOptions = options ?? Options();
+    Map<String, dynamic> _authorization = getAuthorizationHeader();
+    requestOptions = requestOptions.copyWith(headers: _authorization);
+    var response = await dio.patch(path, data: params, options: requestOptions);
+    return response.data;
   }
 
   /// restful delete 操作
-  // ignore: unused_element
-  Future delete(String path,
-      {dynamic params, Options? options, CancelToken? cancelToken}) async {
-    try {
-      var tokenOptions = options ?? getLocalOptions();
-      var response = await dio.delete(path,
-          data: params, options: tokenOptions, cancelToken: cancelToken);
-      return response.data;
-    } on DioError catch (e) {
-      throw createErrorEntity(e);
-    }
+  Future delete(
+    String path, {
+    dynamic params,
+    Options? options,
+  }) async {
+    Options requestOptions = options ?? Options();
+    Map<String, dynamic> _authorization = getAuthorizationHeader();
+    requestOptions = requestOptions.copyWith(headers: _authorization);
+    var response = await dio.delete(
+      path,
+      data: params,
+      options: requestOptions,
+    );
+    return response.data;
   }
 
   /// restful post form 表单提交操作
   // ignore: unused_element
-  Future postForm(String path,
-      {dynamic params, Options? options, CancelToken? cancelToken}) async {
-    try {
-      var tokenOptions = options ?? getLocalOptions();
-      var response = await dio.post(path,
-          data: FormData.fromMap(params),
-          options: tokenOptions,
-          cancelToken: cancelToken);
-      return response.data;
-    } on DioError catch (e) {
-      throw createErrorEntity(e);
-    }
+  Future postForm(
+    String path, {
+    dynamic params,
+    Options? options,
+    CancelToken? cancelToken,
+  }) async {
+    Options requestOptions = options ?? Options();
+    Map<String, dynamic> _authorization = getAuthorizationHeader();
+    requestOptions = requestOptions.copyWith(headers: _authorization);
+    var response = await dio.post(path,
+        data: FormData.fromMap(params),
+        options: requestOptions,
+        cancelToken: cancelToken);
+    return response.data;
+  }
+
+  /// 读取本地配置
+  Map<String, dynamic> getAuthorizationHeader() {
+    var headers;
+    String accessToken = Global.profile.accessToken;
+    headers = {
+      'Authorization': 'Bearer $accessToken',
+    };
+    return headers;
+  }
+
+/*
+   * 取消请求
+   *
+   * 同一个cancel token 可以用于多个请求，当一个cancel token取消时，所有使用该cancel token的请求都会被取消。
+   * 所以参数可选
+   */
+// ignore: unused_element
+  void cancelRequests(CancelToken token) {
+    token.cancel("cancelled");
   }
 }
 
@@ -239,29 +298,4 @@ ErrorEntity createErrorEntity(DioError error) {
         return ErrorEntity(code: -1, message: error.message);
       }
   }
-}
-
-/// 读取本地配置
-Options getLocalOptions() {
-  Options options;
-  String? token = StorageUtil().getItem(STORAGE_USER_TOKEN_KEY);
-  if (token != null) {
-    options = Options(headers: {
-      'Authorization': 'Bearer $token',
-    });
-  } else {
-    options = Options();
-  }
-  return options;
-}
-
-/*
-   * 取消请求
-   *
-   * 同一个cancel token 可以用于多个请求，当一个cancel token取消时，所有使用该cancel token的请求都会被取消。
-   * 所以参数可选
-   */
-// ignore: unused_element
-void cancelRequests(CancelToken token) {
-  token.cancel("cancelled");
 }

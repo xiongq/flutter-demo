@@ -1,26 +1,31 @@
-import 'package:flutter_application_1/common/values/values.dart';
-// ignore: import_of_legacy_library_into_null_safe
+import 'dart:convert';
 import 'package:localstorage/localstorage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// 本地存储
 /// 单例 StorageUtil().getItem('key')
 class StorageUtil {
-  static final StorageUtil _singleton = new StorageUtil._internal();
-  LocalStorage _storage = new LocalStorage(STORAGE_MASTER_KEY);
+  static StorageUtil _instance = new StorageUtil._();
+  factory StorageUtil() => _instance;
+  static SharedPreferences? _prefs;
 
-  factory StorageUtil() {
-    return _singleton;
+  StorageUtil._();
+
+  static Future<void> init() async {
+    if (_prefs == null) {
+      _prefs = await SharedPreferences.getInstance();
+    }
   }
 
-  StorageUtil._internal() {
-    _storage = new LocalStorage(STORAGE_MASTER_KEY);
-  }
-  // 此处修改，是可能返回空
-  String? getItem(String key) {
-    return _storage.getItem(key);
+  /// 设置 json 对象
+  Future<bool> setJSON(String key, dynamic jsonVal) {
+    String jsonString = jsonEncode(jsonVal);
+    return _prefs!.setString(key, jsonString);
   }
 
-  Future<void> setItem(String key, String val) async {
-    await _storage.setItem(key, val);
+  /// 获取 json 对象
+  dynamic getJSON(String key) {
+    String? jsonString = _prefs!.getString(key);
+    return jsonString == null ? null : jsonDecode(jsonString);
   }
 }

@@ -22,14 +22,14 @@ class UserResponseEntity {
 
   factory UserResponseEntity.fromJson(Map<String, dynamic> json) =>
       UserResponseEntity(
-        accessToken: json["accessToken"],
-        displayName: json["displayName"],
+        accessToken: json["access_token"],
+        displayName: json["display_name"],
         channels: List<String>.from(json["channels"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
-        "accessToken": accessToken,
-        "displayName": displayName,
+        "access_token": accessToken,
+        "display_name": displayName,
         "channels": List<dynamic>.from(channels.map((x) => x)),
       };
 }
