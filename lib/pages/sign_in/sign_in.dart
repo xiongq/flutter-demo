@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/common/apis/apis.dart';
+import 'package:flutter_application_1/common/entitys/entitys.dart';
 import 'package:flutter_application_1/common/utils/utils.dart';
 import 'package:flutter_application_1/common/values/values.dart';
 import 'package:flutter_application_1/common/widget/widgets.dart';
@@ -124,7 +126,7 @@ class _SignInPageState extends State<SignInPage> {
                 SizedBox(width: duSetWidth(15)),
                 Expanded(
                   child: btnFlatButtonWidget(
-                    onPressed: () {
+                    onPressed: () async {
                       // Navigator.pushNamed(context, '/sign-in');
                       if (!duIsEmail(_emailController.value.text)) {
                         toastInfo(msg: '请输入正确邮件地址');
@@ -135,6 +137,15 @@ class _SignInPageState extends State<SignInPage> {
                         toastInfo(msg: '密码不能小于6位');
                         return;
                       }
+
+                      UserRequestEntity params = UserRequestEntity(
+                        email: _emailController.value.text,
+                        password: _passController.value.text,
+                      );
+                      UserResponseEntity res = await UserAPI.login(
+                        params: params,
+                      );
+                      print(res.displayName);
                     },
                     title: 'Sign in',
                   ),
