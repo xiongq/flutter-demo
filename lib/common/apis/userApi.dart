@@ -13,3 +13,10 @@ class UserAPI {
     return UserResponseEntity.fromJson(response);
   }
 }
+
+class testAPI {
+  static Future test() async {
+    var resp = await HttpUtil().get('/categories');
+    return resp;
+  }
+}
