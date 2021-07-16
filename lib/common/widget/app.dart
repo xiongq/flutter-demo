@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/common/values/values.dart';
 
-Widget taransparentAppBar({
+PreferredSizeWidget taransparentAppBar({
   required BuildContext context,
   required List<Widget> actions,
 }) {
@@ -18,5 +18,6 @@ Widget taransparentAppBar({
         color: AppColors.primaryText,
       ),
     ),
+    actions: actions,
   );
 }

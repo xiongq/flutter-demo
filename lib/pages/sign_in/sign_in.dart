@@ -221,7 +221,9 @@ class _SignInPageState extends State<SignInPage> {
       height: duSetWidth(44),
       margin: EdgeInsets.only(bottom: duSetHeight(20)),
       child: btnFlatButtonWidget(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, '/sign-up');
+        },
         gbColor: AppColors.secondaryElement,
         fontColor: AppColors.primaryText,
         title: "Sign up",
