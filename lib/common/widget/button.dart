@@ -12,7 +12,7 @@ Widget btnFlatButtonWidget({
   FontWeight fontWeight = FontWeight.w400,
 }) {
   return TextButton(
-    onPressed: () {},
+    onPressed: onPressed,
     child: Text(
       title,
       style: TextStyle(
