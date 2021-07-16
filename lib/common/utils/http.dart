@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:flutter_application_1/common/utils/utils.dart';
 import 'package:flutter_application_1/common/values/values.dart';
+import 'package:flutter_application_1/common/widget/widgets.dart';
 
 class ErrorEntity implements Exception {
   int code;
@@ -71,6 +72,7 @@ class HttpUtil {
       // you can reject a `DioError` object eg: return `dio.reject(dioError)`
     }, onError: (DioError e, handler) {
       // Do something with response error
+      toastInfo(msg: '请求发生错误');
       print("错误之前");
       return handler.next(e); //continue
       // If you want to resolve the request with some custom data，
