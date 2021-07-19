@@ -56,7 +56,7 @@ class _MainPageState extends State<MainPage> {
   // 推荐阅读
   Widget _buildRecommend() {
     return Container(
-      height: duSetHeight(490),
+      // height: duSetHeight(490),
       padding: EdgeInsets.all(20),
       // color: Colors.amber,
       child: Column(
@@ -96,13 +96,21 @@ class _MainPageState extends State<MainPage> {
               ),
             ),
           ),
-          Spacer(),
-          Row(
-            children: [
-              Text('Health'),
-              Text(' · '),
-              Text('20m ago'),
-            ],
+          // Spacer(),
+          Container(
+            margin: EdgeInsets.only(top: duSetHeight(10)),
+            child: Row(
+              children: [
+                Text('Health'),
+                Text(' · '),
+                Text('20m ago'),
+                Spacer(),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.more_horiz),
+                )
+              ],
+            ),
           ),
         ],
       ),
@@ -138,7 +146,10 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        children: [_buildCategories(), _buildRecommend()],
+        children: [
+          _buildCategories(),
+          _buildRecommend(),
+        ],
       ),
     );
   }
