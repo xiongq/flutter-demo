@@ -102,29 +102,31 @@ class WelcomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     // 高度去掉 顶部、底部 导航
     return Scaffold(
-      body: Center(
-        child: Column(
-          children: [
-            _buildPageHeadTitle(),
-            _buildPageHeadDetail(),
-            _buildFeatureItem(
-              "feature-1",
-              "Compelling photography and typography provide a beautiful reading",
-              86,
-            ),
-            _buildFeatureItem(
-              "feature-2",
-              "Sector news never shares your personal data with advertisers or publishers",
-              40,
-            ),
-            _buildFeatureItem(
-              "feature-3",
-              "You can get Premium to unlock hundreds of publications",
-              40,
-            ),
-            Spacer(),
-            _buildStartButton(context)
-          ],
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            children: [
+              _buildPageHeadTitle(),
+              _buildPageHeadDetail(),
+              _buildFeatureItem(
+                "feature-1",
+                "Compelling photography and typography provide a beautiful reading",
+                40,
+              ),
+              _buildFeatureItem(
+                "feature-2",
+                "Sector news never shares your personal data with advertisers or publishers",
+                40,
+              ),
+              _buildFeatureItem(
+                "feature-3",
+                "You can get Premium to unlock hundreds of publications",
+                40,
+              ),
+              Spacer(),
+              _buildStartButton(context)
+            ],
+          ),
         ),
       ),
     );
