@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/application/application.dart';
 import 'package:flutter_application_1/pages/welcome/welcomePage.dart';
 import 'package:flutter_application_1/routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.green,
         ),
-        home: WelcomePage(),
+        home: ApplicationPage(),
         routes: staticRoutes,
         debugShowCheckedModeBanner: false,
       ),
