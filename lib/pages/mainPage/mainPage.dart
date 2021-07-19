@@ -65,7 +65,7 @@ class _MainPageState extends State<MainPage> {
           Container(
             margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
             child: AspectRatio(
-              aspectRatio: 1,
+              aspectRatio: 1.57,
               child: Image.asset(
                 'assets/images/NS.jpeg',
                 fit: BoxFit.cover,
@@ -87,13 +87,14 @@ class _MainPageState extends State<MainPage> {
           Container(
             margin: EdgeInsets.only(top: duSetWidth(10)),
             child: Text(
-              'The green-blue blooms of toxic algae have been found in Prospect Park',
+              'The green-blue blooms of toxic algae have been found in Prospect Park 7月19日8时19分，我国在西昌卫星发射中心用长征二号丙运载火箭，成功将遥感三十号10组卫星发射升空，卫星顺利进入预定轨道，发射任务获得圆满成功。新华社发（郭文彬 摄）',
               style: TextStyle(
                 color: AppColors.primaryText,
                 fontSize: duSetFontSize(24),
                 fontFamily: 'Montserrat',
                 fontWeight: FontWeight.w600,
               ),
+              maxLines: 10,
             ),
           ),
           // Spacer(),
