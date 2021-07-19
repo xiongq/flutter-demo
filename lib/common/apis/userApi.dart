@@ -14,7 +14,7 @@ class UserAPI {
   }
 }
 
-class testAPI {
+class TestAPI {
   static Future test() async {
     var resp = await HttpUtil().get('/categories');
     return resp;

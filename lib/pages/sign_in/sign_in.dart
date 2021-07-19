@@ -23,7 +23,7 @@ class _SignInPageState extends State<SignInPage> {
     //   "/sign-up",
     // );
 
-    var res = await testAPI.test();
+    var res = await TestAPI.test();
     print(res);
   }
 
