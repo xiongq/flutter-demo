@@ -94,7 +94,7 @@ class _MainPageState extends State<MainPage> {
                 fontFamily: 'Montserrat',
                 fontWeight: FontWeight.w600,
               ),
-              maxLines: 10,
+              maxLines: 3,
             ),
           ),
           // Spacer(),
@@ -138,7 +138,7 @@ class _MainPageState extends State<MainPage> {
   Widget _buildChannels() {
     return Container(
       height: duSetWidth(137),
-      color: Colors.blueAccent,
+      // color: Colors.blueAccent,
       child: Row(
         children: [
           SizedBox(
