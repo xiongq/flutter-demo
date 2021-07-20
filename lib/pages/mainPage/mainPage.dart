@@ -57,7 +57,7 @@ class _MainPageState extends State<MainPage> {
   Widget _buildRecommend() {
     return Container(
       // height: duSetHeight(490),
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
       // color: Colors.amber,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,7 +87,7 @@ class _MainPageState extends State<MainPage> {
           Container(
             margin: EdgeInsets.only(top: duSetWidth(10)),
             child: Text(
-              'The green-blue blooms of toxic algae have been found in Prospect Park 7月19日8时19分，我国在西昌卫星发射中心用长征二号丙运载火箭，成功将遥感三十号10组卫星发射升空，卫星顺利进入预定轨道，发射任务获得圆满成功。新华社发（郭文彬 摄）',
+              'The green-blue blooms of toxic algae have been found in Prospect Park ，卫星顺利进入预定轨道，发射任务获得圆满成功。新华社发（郭文彬 摄）',
               style: TextStyle(
                 color: AppColors.primaryText,
                 fontSize: duSetFontSize(24),
@@ -102,9 +102,25 @@ class _MainPageState extends State<MainPage> {
             margin: EdgeInsets.only(top: duSetHeight(10)),
             child: Row(
               children: [
-                Text('Health'),
+                Text(
+                  'Health',
+                  style: TextStyle(
+                    color: AppColors.primaryElement,
+                    fontSize: duSetFontSize(14),
+                    fontFamily: 'Avenir',
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
                 Text(' · '),
-                Text('20m ago'),
+                Text(
+                  '20m ago',
+                  style: TextStyle(
+                    color: AppColors.primaryText,
+                    fontSize: duSetFontSize(14),
+                    fontFamily: 'Avenir',
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
                 Spacer(),
                 IconButton(
                   onPressed: () {},
@@ -121,8 +137,117 @@ class _MainPageState extends State<MainPage> {
   // 频道
   Widget _buildChannels() {
     return Container(
-      height: duSetHeight(137),
+      height: duSetWidth(137),
       color: Colors.blueAccent,
+      child: Row(
+        children: [
+          SizedBox(
+            width: 20,
+          ),
+          Container(
+            width: duSetWidth(70),
+            height: duSetWidth(97),
+            // color: Colors.red,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Positioned(
+                  top: 0,
+                  child: Container(
+                    height: duSetWidth(64),
+                    width: duSetWidth(64),
+                    decoration: BoxDecoration(
+                      color: AppColors.primaryBackground,
+                      boxShadow: [
+                        Shadows.primaryShadow,
+                      ],
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(
+                          duSetWidth(64 * 0.5),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: duSetWidth(10),
+                  child: ClipOval(
+                    child: Image.asset(
+                      "assets/images/NS.jpeg",
+                      fit: BoxFit.cover,
+                      width: duSetWidth(44),
+                      height: duSetWidth(44),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: 0,
+                  child: Text(
+                    'Fox News dad dds',
+                    style: TextStyle(
+                      color: AppColors.primaryText,
+                      fontSize: duSetFontSize(14),
+                      fontFamily: 'Avenir',
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            width: duSetWidth(104),
+            height: duSetWidth(97),
+            // color: Colors.red,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Positioned(
+                  top: 0,
+                  child: Container(
+                    height: duSetWidth(64),
+                    width: duSetWidth(64),
+                    decoration: BoxDecoration(
+                      color: AppColors.primaryBackground,
+                      boxShadow: [
+                        Shadows.primaryShadow,
+                      ],
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(
+                          duSetWidth(64 * 0.5),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: duSetWidth(10),
+                  child: ClipOval(
+                    child: Image.asset(
+                      "assets/images/NS.jpeg",
+                      fit: BoxFit.cover,
+                      width: duSetWidth(44),
+                      height: duSetWidth(44),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: 0,
+                  child: Text(
+                    'Fox News',
+                    style: TextStyle(
+                      color: AppColors.primaryText,
+                      fontSize: duSetFontSize(14),
+                      fontFamily: 'Avenir',
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -131,6 +256,15 @@ class _MainPageState extends State<MainPage> {
     return Container(
       height: duSetHeight(161 * 5 + 100.0),
       color: Colors.purple,
+      child: Row(
+        children: [
+          Container(
+            width: duSetWidth(70),
+            height: duSetWidth(97),
+            color: Colors.red,
+          )
+        ],
+      ),
     );
   }
 
@@ -149,7 +283,17 @@ class _MainPageState extends State<MainPage> {
       child: Column(
         children: [
           _buildCategories(),
+          Divider(
+            height: 1,
+          ),
           _buildRecommend(),
+          Divider(
+            height: 1,
+          ),
+          _buildChannels(),
+          Divider(
+            height: 1,
+          ),
         ],
       ),
     );
