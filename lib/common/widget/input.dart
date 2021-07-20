@@ -9,12 +9,13 @@ Widget inputTextEdit({
   required String hintText,
   bool isPassword = false,
   double marginTop = 15,
+  Color bgColor = AppColors.secondaryElement,
 }) {
   return Container(
     height: duSetWidth(44),
     margin: EdgeInsets.only(top: marginTop),
     decoration: BoxDecoration(
-      color: AppColors.secondaryElement,
+      color: bgColor,
       borderRadius: Radii.k6pxRadius,
     ),
     child: Center(
