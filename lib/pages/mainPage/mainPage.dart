@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/common/utils/utils.dart';
 import 'package:flutter_application_1/common/values/values.dart';
+import 'package:flutter_application_1/common/widget/input.dart';
+import 'package:flutter_application_1/common/widget/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -57,7 +60,7 @@ class _MainPageState extends State<MainPage> {
   Widget _buildRecommend() {
     return Container(
       // height: duSetHeight(490),
-      padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+      padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
       // color: Colors.amber,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,9 +68,9 @@ class _MainPageState extends State<MainPage> {
           Container(
             margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
             child: AspectRatio(
-              aspectRatio: 1.57,
+              aspectRatio: 1,
               child: Image.asset(
-                'assets/images/NS.jpeg',
+                'assets/images/xcode.jpeg',
                 fit: BoxFit.cover,
               ),
             ),
@@ -122,10 +125,14 @@ class _MainPageState extends State<MainPage> {
                   ),
                 ),
                 Spacer(),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.more_horiz),
-                )
+                InkWell(
+                  child: Icon(
+                    Icons.more_horiz,
+                    color: AppColors.primaryText,
+                    size: 24,
+                  ),
+                  onTap: () {},
+                ),
               ],
             ),
           ),
@@ -173,7 +180,7 @@ class _MainPageState extends State<MainPage> {
                   top: duSetWidth(10),
                   child: ClipOval(
                     child: Image.asset(
-                      "assets/images/NS.jpeg",
+                      "assets/images/feature-1.png",
                       fit: BoxFit.cover,
                       width: duSetWidth(44),
                       height: duSetWidth(44),
@@ -183,7 +190,7 @@ class _MainPageState extends State<MainPage> {
                 Positioned(
                   bottom: 0,
                   child: Text(
-                    'Fox News dad dds',
+                    'Fox News',
                     style: TextStyle(
                       color: AppColors.primaryText,
                       fontSize: duSetFontSize(14),
@@ -253,27 +260,219 @@ class _MainPageState extends State<MainPage> {
 
   // 新闻列表
   Widget _buildNewsList() {
+    return Column(
+      children: [
+        Container(
+          height: duSetWidth(160),
+          padding: EdgeInsets.all(20),
+          child: Row(
+            children: [
+              AspectRatio(
+                aspectRatio: 1,
+                child: Image.asset(
+                  'assets/images/feature-1.png',
+                  fit: BoxFit.cover,
+                ),
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              Expanded(
+                child: Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        'Euronews',
+                        style: TextStyle(
+                          color: AppColors.secondaryElementText,
+                          fontSize: duSetFontSize(14),
+                          fontFamily: 'Avenir',
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                      Text(
+                        'On politics with Lisa Loureniani: Warren’s growing crowds',
+                        maxLines: 3,
+                        style: TextStyle(
+                          color: AppColors.primaryText,
+                          fontSize: duSetFontSize(16),
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Politics',
+                            style: TextStyle(
+                              color: AppColors.secondaryElementText,
+                              fontSize: duSetFontSize(14),
+                              fontFamily: 'Avenir',
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                          Text(' · '),
+                          Text(
+                            '20m ago',
+                            style: TextStyle(
+                              color: AppColors.primaryText,
+                              fontSize: duSetFontSize(14),
+                              fontFamily: 'Avenir',
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                          Spacer(),
+                          InkWell(
+                            child: Icon(
+                              Icons.more_horiz,
+                              color: AppColors.primaryText,
+                              size: 24,
+                            ),
+                            onTap: () {},
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  // ad 广告条
+  Widget _buildAD() {
     return Container(
-      height: duSetHeight(161 * 5 + 100.0),
-      color: Colors.purple,
+      height: 100,
+      padding: EdgeInsets.all(20),
       child: Row(
         children: [
-          Container(
-            width: duSetWidth(70),
-            height: duSetWidth(97),
-            color: Colors.red,
-          )
+          Expanded(
+            child: TextButton(
+              onPressed: () {},
+              child: Text(
+                'Tired of Ads? Get Premium - \$9.99',
+                style: TextStyle(
+                  color: AppColors.primaryText,
+                  fontSize: 18,
+                  fontFamily: 'Avenir',
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(60))),
+                ),
+                side: MaterialStateProperty.all(
+                  BorderSide(
+                    color: AppColors.primaryElement,
+                    width: 2,
+                    style: BorderStyle.solid,
+                  ),
+                ),
+                minimumSize: MaterialStateProperty.all(Size(100, 80)),
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
 
-  // ad 广告条
+  final TextEditingController _emailController = TextEditingController();
   // 邮件订阅
   Widget _buildEmailSubscribe() {
     return Container(
-      height: duSetHeight(259),
-      color: Colors.brown,
+      padding: EdgeInsets.all(20),
+      color: AppColors.secondaryElement,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Newsletter',
+                style: TextStyle(
+                  color: AppColors.primaryText,
+                  fontSize: duSetFontSize(16),
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              InkWell(
+                child: Icon(
+                  Icons.close_outlined,
+                  color: AppColors.primaryText,
+                  size: 24,
+                ),
+                onTap: () {},
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          inputTextEdit(
+              controller: _emailController,
+              hintText: 'Email',
+              marginTop: 0,
+              keyboardType: TextInputType.emailAddress,
+              bgColor: Colors.white),
+          SizedBox(
+            height: 20,
+          ),
+          Container(
+            height: duSetWidth(44),
+            width: double.infinity,
+            child: btnFlatButtonWidget(
+              onPressed: () {},
+              title: 'Subscribe',
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Container(
+            width: duSetWidth(130.5 * 2),
+            child: RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'By clicking on Subscribe button you agree to accept',
+                    style: TextStyle(
+                      color: AppColors.primaryText,
+                      fontFamily: "Avenir",
+                      fontWeight: FontWeight.w400,
+                      fontSize: duSetFontSize(16),
+                      height: 1.2,
+                    ),
+                  ),
+                  TextSpan(
+                    text: ' Privacy Policy ',
+                    style: TextStyle(
+                      color: AppColors.primaryElement,
+                      fontFamily: "Avenir",
+                      fontWeight: FontWeight.w400,
+                      fontSize: duSetFontSize(16),
+                      height: 1.2,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -294,6 +493,15 @@ class _MainPageState extends State<MainPage> {
           Divider(
             height: 1,
           ),
+          _buildNewsList(),
+          Divider(
+            height: 1,
+          ),
+          _buildAD(),
+          Divider(
+            height: 1,
+          ),
+          _buildEmailSubscribe(),
         ],
       ),
     );
