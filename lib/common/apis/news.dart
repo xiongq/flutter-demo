@@ -28,6 +28,6 @@ class NewsAPI {
       cacheDisk: false,
       refresh: refresh,
     );
-    return NewsRecommendResponseEntity.fromJson(response);
+    return NewsRecommendResponseEntity.fromMap(response);
   }
 }

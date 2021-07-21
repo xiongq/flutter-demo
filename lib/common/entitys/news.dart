@@ -29,22 +29,22 @@ class NewsRecommendRequestEntity {
 // 推荐新闻
 class NewsRecommendResponseEntity {
   NewsRecommendResponseEntity({
-    required this.thumbnail,
-    required this.title,
-    required this.category,
-    required this.addtime,
-    required this.author,
-    required this.url,
-    required this.id,
+    this.thumbnail,
+    this.title,
+    this.category,
+    this.addtime,
+    this.author,
+    this.url,
+    this.id,
   });
 
-  final String thumbnail;
-  final String title;
-  final String category;
-  final DateTime addtime;
-  final String author;
-  final String url;
-  final String id;
+  final String? thumbnail;
+  final String? title;
+  final String? category;
+  final DateTime? addtime;
+  final String? author;
+  final String? url;
+  final String? id;
 
   factory NewsRecommendResponseEntity.fromJson(String str) =>
       NewsRecommendResponseEntity.fromMap(json.decode(str));
@@ -66,7 +66,7 @@ class NewsRecommendResponseEntity {
         "thumbnail": thumbnail,
         "title": title,
         "category": category,
-        "addtime": addtime.toIso8601String(),
+        "addtime": addtime!.toIso8601String(),
         "author": author,
         "url": url,
         "id": id,

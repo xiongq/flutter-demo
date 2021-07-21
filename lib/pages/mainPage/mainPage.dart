@@ -7,6 +7,7 @@ import 'package:flutter_application_1/common/values/values.dart';
 import 'package:flutter_application_1/common/widget/input.dart';
 import 'package:flutter_application_1/common/widget/widgets.dart';
 import 'package:flutter_application_1/pages/mainPage/categories_widget.dart';
+import 'package:flutter_application_1/pages/mainPage/recommend_widget.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -55,87 +56,9 @@ class _MainPageState extends State<MainPage> {
 
   // 推荐阅读
   Widget _buildRecommend() {
-    return Container(
-      // height: duSetHeight(490),
-      padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-      // color: Colors.amber,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: Image.asset(
-                'assets/images/xcode.jpeg',
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          Container(
-            child: Text(
-              'Bloomberg',
-              // textAlign: TextAlign.left,
-              style: TextStyle(
-                color: AppColors.primaryText,
-                fontSize: duSetFontSize(14),
-                fontFamily: 'Avenir',
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: duSetWidth(10)),
-            child: Text(
-              'The green-blue blooms of toxic algae have been found in Prospect Park ，卫星顺利进入预定轨道，发射任务获得圆满成功。新华社发（郭文彬 摄）',
-              style: TextStyle(
-                color: AppColors.primaryText,
-                fontSize: duSetFontSize(24),
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.w600,
-              ),
-              maxLines: 3,
-            ),
-          ),
-          // Spacer(),
-          Container(
-            margin: EdgeInsets.only(top: duSetHeight(10)),
-            child: Row(
-              children: [
-                Text(
-                  'Health',
-                  style: TextStyle(
-                    color: AppColors.primaryElement,
-                    fontSize: duSetFontSize(14),
-                    fontFamily: 'Avenir',
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                Text(' · '),
-                Text(
-                  '20m ago',
-                  style: TextStyle(
-                    color: AppColors.primaryText,
-                    fontSize: duSetFontSize(14),
-                    fontFamily: 'Avenir',
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                Spacer(),
-                InkWell(
-                  child: Icon(
-                    Icons.more_horiz,
-                    color: AppColors.primaryText,
-                    size: 24,
-                  ),
-                  onTap: () {},
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+    return _newRecommend == null
+        ? Container()
+        : recommendWidget(_newRecommend!);
   }
 
   // 频道

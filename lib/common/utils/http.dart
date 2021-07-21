@@ -102,7 +102,7 @@ class HttpUtil {
     bool refresh = false,
     bool noCache = !CACHE_ENABLE,
     bool list = false,
-    String cacheKey = '',
+    String? cacheKey,
     bool cacheDisk = false,
   }) async {
     try {
