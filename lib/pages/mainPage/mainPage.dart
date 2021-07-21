@@ -8,6 +8,7 @@ import 'package:flutter_application_1/common/widget/input.dart';
 import 'package:flutter_application_1/common/widget/widgets.dart';
 import 'package:flutter_application_1/pages/mainPage/categories_widget.dart';
 import 'package:flutter_application_1/pages/mainPage/channels_widget.dart';
+import 'package:flutter_application_1/pages/mainPage/news_item_widget.dart';
 import 'package:flutter_application_1/pages/mainPage/recommend_widget.dart';
 
 class MainPage extends StatefulWidget {
@@ -21,6 +22,7 @@ class _MainPageState extends State<MainPage> {
   List<CategoryResponseEntity>? _categoriesList;
   NewsRecommendResponseEntity? _newRecommend;
   List<ChannelResponseEntity>? _channels;
+  NewsPageListResponseEntity? _newsPageList;
   String _selCategoryCode = ''; // 选中的分类Code
   @override
   void initState() {
@@ -33,6 +35,7 @@ class _MainPageState extends State<MainPage> {
     _categoriesList = await NewsAPI.categories(cacheDisk: true);
     _newRecommend = await NewsAPI.newsRecommend(cacheDisk: false);
     _channels = await NewsAPI.channelResponse();
+    _newsPageList = await NewsAPI.newsPageList();
     if (mounted) {
       setState(() {});
     }
@@ -74,91 +77,22 @@ class _MainPageState extends State<MainPage> {
 
   // 新闻列表
   Widget _buildNewsList() {
-    return Column(
-      children: [
-        Container(
-          height: duSetWidth(160),
-          padding: EdgeInsets.all(20),
-          child: Row(
-            children: [
-              AspectRatio(
-                aspectRatio: 1,
-                child: Image.asset(
-                  'assets/images/feature-1.png',
-                  fit: BoxFit.cover,
-                ),
-              ),
-              SizedBox(
-                width: 20,
-              ),
-              Expanded(
-                child: Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Text(
-                        'Euronews',
-                        style: TextStyle(
-                          color: AppColors.secondaryElementText,
-                          fontSize: duSetFontSize(14),
-                          fontFamily: 'Avenir',
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                      Text(
-                        'On politics with Lisa Loureniani: Warren’s growing crowds',
-                        maxLines: 3,
-                        style: TextStyle(
-                          color: AppColors.primaryText,
-                          fontSize: duSetFontSize(16),
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Politics',
-                            style: TextStyle(
-                              color: AppColors.secondaryElementText,
-                              fontSize: duSetFontSize(14),
-                              fontFamily: 'Avenir',
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                          Text(' · '),
-                          Text(
-                            '20m ago',
-                            style: TextStyle(
-                              color: AppColors.primaryText,
-                              fontSize: duSetFontSize(14),
-                              fontFamily: 'Avenir',
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                          Spacer(),
-                          InkWell(
-                            child: Icon(
-                              Icons.more_horiz,
-                              color: AppColors.primaryText,
-                              size: 24,
-                            ),
-                            onTap: () {},
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
+    return _newsPageList == null
+        ? Container()
+        : Container(
+            child: Column(
+              children: _newsPageList!.items.map<Widget>((item) {
+                return Column(
+                  children: [
+                    newsItem(item),
+                    Divider(
+                      height: 1,
+                    ),
+                  ],
+                );
+              }).toList(),
+            ),
+          );
   }
 
   // ad 广告条

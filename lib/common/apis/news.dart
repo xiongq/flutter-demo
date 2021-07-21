@@ -45,4 +45,20 @@ class NewsAPI {
             (item) => ChannelResponseEntity.fromMap(item))
         .toList();
   }
+
+// 翻页
+  /// refresh 是否刷新
+  static Future<NewsPageListResponseEntity> newsPageList({
+    NewsPageListRequestEntity? params,
+    bool refresh = false,
+    bool cacheDisk = false,
+  }) async {
+    var response = await HttpUtil().get(
+      '/news',
+      params: params?.toJson(),
+      refresh: refresh,
+      cacheDisk: cacheDisk,
+    );
+    return NewsPageListResponseEntity.fromMap(response);
+  }
 }
