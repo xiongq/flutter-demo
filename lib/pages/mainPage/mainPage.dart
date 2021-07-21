@@ -7,6 +7,7 @@ import 'package:flutter_application_1/common/values/values.dart';
 import 'package:flutter_application_1/common/widget/input.dart';
 import 'package:flutter_application_1/common/widget/widgets.dart';
 import 'package:flutter_application_1/pages/mainPage/categories_widget.dart';
+import 'package:flutter_application_1/pages/mainPage/channels_widget.dart';
 import 'package:flutter_application_1/pages/mainPage/recommend_widget.dart';
 
 class MainPage extends StatefulWidget {
@@ -19,6 +20,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   List<CategoryResponseEntity>? _categoriesList;
   NewsRecommendResponseEntity? _newRecommend;
+  List<ChannelResponseEntity>? _channels;
   String _selCategoryCode = ''; // 选中的分类Code
   @override
   void initState() {
@@ -30,6 +32,7 @@ class _MainPageState extends State<MainPage> {
   void loadAllData() async {
     _categoriesList = await NewsAPI.categories(cacheDisk: true);
     _newRecommend = await NewsAPI.newsRecommend(cacheDisk: false);
+    _channels = await NewsAPI.channelResponse();
     if (mounted) {
       setState(() {});
     }
@@ -63,119 +66,10 @@ class _MainPageState extends State<MainPage> {
 
   // 频道
   Widget _buildChannels() {
-    return Container(
-      height: duSetWidth(137),
-      // color: Colors.blueAccent,
-      child: Row(
-        children: [
-          SizedBox(
-            width: 20,
-          ),
-          Container(
-            width: duSetWidth(70),
-            height: duSetWidth(97),
-            // color: Colors.red,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Positioned(
-                  top: 0,
-                  child: Container(
-                    height: duSetWidth(64),
-                    width: duSetWidth(64),
-                    decoration: BoxDecoration(
-                      color: AppColors.primaryBackground,
-                      boxShadow: [
-                        Shadows.primaryShadow,
-                      ],
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(
-                          duSetWidth(64 * 0.5),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: duSetWidth(10),
-                  child: ClipOval(
-                    child: Image.asset(
-                      "assets/images/feature-1.png",
-                      fit: BoxFit.cover,
-                      width: duSetWidth(44),
-                      height: duSetWidth(44),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  bottom: 0,
-                  child: Text(
-                    'Fox News',
-                    style: TextStyle(
-                      color: AppColors.primaryText,
-                      fontSize: duSetFontSize(14),
-                      fontFamily: 'Avenir',
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            width: duSetWidth(104),
-            height: duSetWidth(97),
-            // color: Colors.red,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Positioned(
-                  top: 0,
-                  child: Container(
-                    height: duSetWidth(64),
-                    width: duSetWidth(64),
-                    decoration: BoxDecoration(
-                      color: AppColors.primaryBackground,
-                      boxShadow: [
-                        Shadows.primaryShadow,
-                      ],
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(
-                          duSetWidth(64 * 0.5),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: duSetWidth(10),
-                  child: ClipOval(
-                    child: Image.asset(
-                      "assets/images/NS.jpeg",
-                      fit: BoxFit.cover,
-                      width: duSetWidth(44),
-                      height: duSetWidth(44),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  bottom: 0,
-                  child: Text(
-                    'Fox News',
-                    style: TextStyle(
-                      color: AppColors.primaryText,
-                      fontSize: duSetFontSize(14),
-                      fontFamily: 'Avenir',
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+    return _channels == null
+        ? Container()
+        : newsChannels(
+            channels: _channels!, onTap: (ChannelResponseEntity entity) {});
   }
 
   // 新闻列表

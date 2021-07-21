@@ -30,4 +30,19 @@ class NewsAPI {
     );
     return NewsRecommendResponseEntity.fromMap(response);
   }
+
+  //频道
+  static Future<List<ChannelResponseEntity>> channelResponse({
+    bool refresh = false,
+    bool cacheDisk = false,
+  }) async {
+    var response = await HttpUtil().get(
+      '/channels',
+      cacheDisk: cacheDisk,
+    );
+    return response
+        .map<ChannelResponseEntity>(
+            (item) => ChannelResponseEntity.fromMap(item))
+        .toList();
+  }
 }
