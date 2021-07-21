@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/global.dart';
 import 'package:flutter_application_1/pages/application/application.dart';
-import 'package:flutter_application_1/pages/welcome/welcomePage.dart';
 import 'package:flutter_application_1/routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+// void main() {
+//   runApp(MyApp());
+// }
+
 void main() {
-  runApp(MyApp());
+  Global.init().then((e) => runApp(MyApp()));
 }
 
 class MyApp extends StatelessWidget {

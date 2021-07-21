@@ -33,3 +33,24 @@ class StorageUtil {
     return _prefs!.remove(key);
   }
 }
+
+class Single {
+  static final Single _single = Single._internal();
+  static SharedPreferences? _prefs;
+
+  Single._internal();
+  factory Single() {
+    return _single;
+  }
+  void test() {
+    if (_prefs != null) {
+      print('test $_prefs');
+    }
+  }
+
+  static Future<void> init() async {
+    print('init s $_prefs');
+    _prefs = await SharedPreferences.getInstance();
+    print('init e $_prefs');
+  }
+}

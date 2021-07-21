@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/common/apis/apis.dart';
+import 'package:flutter_application_1/common/entitys/categories.dart';
+import 'package:flutter_application_1/common/entitys/entitys.dart';
 import 'package:flutter_application_1/common/utils/utils.dart';
 import 'package:flutter_application_1/common/values/values.dart';
 import 'package:flutter_application_1/common/widget/input.dart';
 import 'package:flutter_application_1/common/widget/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_application_1/pages/mainPage/categories_widget.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -13,6 +16,9 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  List<CategoryResponseEntity>? _categoriesList;
+  NewsRecommendResponseEntity? _newRecommend;
+  String _selCategoryCode = ''; // 选中的分类Code
   @override
   void initState() {
     super.initState();
@@ -20,40 +26,31 @@ class _MainPageState extends State<MainPage> {
   }
 
   // 读取所有数据
-  void loadAllData() async {}
-  Widget _buildCategories() {
-    List<String> cateList = [
-      'Latest',
-      'World',
-      'Business',
-      'Sports',
-      'Life',
-      '国内',
-      '国外',
-    ];
+  void loadAllData() async {
+    _categoriesList = await NewsAPI.categories(cacheDisk: true);
+    _newRecommend = await NewsAPI.newsRecommend(cacheDisk: false);
+    if (mounted) {
+      setState(() {});
+    }
+  }
 
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: cateList.map<Widget>((e) {
-          return Container(
-            // color: Colors.red,
-            alignment: Alignment.center,
-            height: duSetWidth(52),
-            padding: EdgeInsets.symmetric(horizontal: 8.5),
-            child: Text(
-              e,
-              style: TextStyle(
-                color: AppColors.primaryText,
-                fontSize: duSetFontSize(18),
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+  _loadNewsData(
+    categoryCode, {
+    bool refresh = false,
+  }) async {
+    _selCategoryCode = categoryCode;
+  }
+
+  Widget _buildCategories() {
+    return _categoriesList == null
+        ? Container()
+        : newsCategoriesWidget(
+            _categoriesList!,
+            _selCategoryCode,
+            (CategoryResponseEntity entity) {
+              _loadNewsData(entity.code);
+            },
           );
-        }).toList(),
-      ),
-    );
   }
 
   // 推荐阅读
@@ -356,7 +353,9 @@ class _MainPageState extends State<MainPage> {
         children: [
           Expanded(
             child: TextButton(
-              onPressed: () {},
+              onPressed: () async {
+                // List<CategoryResponseEntity> res = await NewsAPI.categories();
+              },
               child: Text(
                 'Tired of Ads? Get Premium - \$9.99',
                 style: TextStyle(
