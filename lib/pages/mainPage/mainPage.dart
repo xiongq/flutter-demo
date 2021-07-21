@@ -368,8 +368,7 @@ class _MainPageState extends State<MainPage> {
               ),
               style: ButtonStyle(
                 shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(60))),
+                  RoundedRectangleBorder(borderRadius: Radii.k6pxRadius),
                 ),
                 side: MaterialStateProperty.all(
                   BorderSide(
@@ -453,7 +452,7 @@ class _MainPageState extends State<MainPage> {
                       color: AppColors.primaryText,
                       fontFamily: "Avenir",
                       fontWeight: FontWeight.w400,
-                      fontSize: duSetFontSize(16),
+                      fontSize: duSetFontSize(14),
                       height: 1.2,
                     ),
                   ),
@@ -463,7 +462,7 @@ class _MainPageState extends State<MainPage> {
                       color: AppColors.primaryElement,
                       fontFamily: "Avenir",
                       fontWeight: FontWeight.w400,
-                      fontSize: duSetFontSize(16),
+                      fontSize: duSetFontSize(14),
                       height: 1.2,
                     ),
                   ),
